@@ -451,7 +451,9 @@ def load_model_and_scaler(model_path):
     return model, scaler
 
 # --- パス指定とモデル読み込み ---
-MODEL_PATH = r"E:\04_学習環境\classification_model.pth"
+#MODEL_PATH = r"E:\04_学習環境\classification_model.pth"
+MODEL_PATH = r"classification_model.pth"
+
 if not os.path.exists(MODEL_PATH):
     st.error(f"❌ モデルファイルが存在しません: {MODEL_PATH}")
     st.stop()
