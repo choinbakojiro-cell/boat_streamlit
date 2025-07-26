@@ -3,3 +3,4 @@ pandas
 requests
 torch
 beautifulsoup4
+scikit-learn
