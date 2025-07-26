@@ -1,0 +1,13 @@
+streamlit
+random
+pandas
+time
+requests
+BeautifulSoup
+base64
+datetime
+itertools
+torch
+os
+StandardScaler
+torch.nn

@@ -1,0 +1,13 @@
+#仮想環境をつくる
+
+
+# venvをアクティブにする記述
+
+cd "e:\04_学習環境\"
+.\.venv\Scripts\Activate.ps1
+
+
+# Streamlitを起動する
+streamlit run BoatPy_ver01.py
+streamlit run BoatPy_ver02.py
+streamlit run BoatPy_ver03.py
