@@ -219,13 +219,33 @@ if st.button("出走表URLを表示"):
 
     except Exception as e:
         st.session_state.weather_info = {"error": str(e)}
+# --- 風向の変換 --- 
+# 方位を角度から16方位に変換する関数
+def angle_to_direction(degree):
+    directions = [
+        "北", "北北東", "北東", "東北東", "東", "東南東",
+        "南東", "南南東", "南", "南南西", "南西", "西南西",
+        "西", "西北西", "北西", "北北西"
+    ]
+    idx = int((degree + 11.25) % 360 / 22.5)
+    return directions[idx]
+
+# --- 風向の表示（安全に条件付き） ---
+if (
+    "weather_info" in st.session_state
+    and isinstance(st.session_state.weather_info, dict)
+    and st.session_state.weather_info.get("風向") is not None
+):
+    wind_deg = st.session_state.weather_info["風向"]
+    wind_dir = angle_to_direction(wind_deg)
+
 # --- 天気表示 ---
 st.markdown(
     """
     <div style='font-size: 20px; font-weight: bold; color: #333;
                 border-bottom:2px solid #0288d1; padding-bottom: 2px;
                 margin-bottom: 16px; margin-top: 0;'>
-        🌤 現地の情報（風向は0が北、90が東、180が南、となります）
+        🌤 現地の情報
     </div>
     """,
     unsafe_allow_html=True
@@ -238,7 +258,7 @@ if st.session_state.weather_info is not None and "error" not in st.session_state
     with col2:
         st.markdown(f"💨 **風速**: {st.session_state.weather_info['風速']} m/s")
     with col3:
-        st.markdown(f"🧭 **風向**: {st.session_state.weather_info['風向']}°")
+        st.markdown(f"🧭 **風向**: {wind_dir}（{wind_deg}°）")
     with col4:
         st.markdown(f"🌡 **気温**: {st.session_state.weather_info['気温']} ℃")
 
