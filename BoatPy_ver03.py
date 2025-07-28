@@ -138,6 +138,19 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 
+#-------------------------------------------------------------------------------------------------------------------------
+import pytz  # 必要なライブラリ
+
+# 日本のタイムゾーンを指定
+jst = pytz.timezone('Asia/Tokyo')
+
+# 現在の日本時間を取得
+now_jst = datetime.datetime.now(jst)
+
+# 日付だけを使う
+today_jst = now_jst.date()
+#-------------------------------------------------------------------------------------------------------------------------
+
 # --- 競艇場リスト ---
 boat_places = {
     "桐生": "01", "戸田": "02", "江戸川": "03", "平和島": "04", "多摩川": "05",
@@ -168,7 +181,8 @@ with col1:
 with col2:
     selected_race = st.selectbox("レース", [f"{i}R" for i in range(1, 13)])
 with col3:
-    selected_date = st.date_input("日付", value=datetime.date.today())
+#    selected_date = st.date_input("日付", value=datetime.date.today())
+    selected_date = st.date_input("日付", value=today_jst)
 
 # --- 出走表URL生成 rno=何レース目か、jcd=レース場ナンバー、hd=日付---
 # --- 天気取得 ---
@@ -186,6 +200,10 @@ jcd = boat_places[selected_place]
 rno = selected_race.replace("R", "")
 hd = selected_date.strftime("%Y%m%d")
 detail_url = f"https://www.boatrace.jp/owpc/pc/race/racelist?rno={rno}&jcd={jcd}&hd={hd}"
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------------------------------------------------
 
 ## --- 出走表URLを表示 ---
 if st.button("出走表URLを表示"):
